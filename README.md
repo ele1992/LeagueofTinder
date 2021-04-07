@@ -1,31 +1,33 @@
+## League of Tinder
+
 League of Tinder is an app where players of the game League of Legends can find and match with other players to play the game together. 
 
-This app can solve a few problems at once:
+##This app can solve a few problems at once:
 
-   Make new friends
-   Find players with the same goal
-   Improve together!
+  * Make new friends
+  * Find players with the same goal
+  * Improve together!
 
-Technologies and concepts I used in this project
+##Technologies and concepts I used in this project
 
-    React-Native
-    Redux
-    Express
-    REST API
-    Sequelize as ORM
-    One-to-many models
-    Many-to-many models 
+  *  React-Native
+  *  Redux
+  *  Express
+  *  REST API
+  *  Sequelize as ORM
+  *  One-to-many models
+  *  Many-to-many models 
   
-    Bootstrap 
+  * Bootstrap 
 
 The goal of this project is to build fullstack mobile app, practicing and learning new technologies. I learnt these new tools on my own by reading documentation, reading articles and watching tutorials.
 
 
-User Story
+##User Story
 
-As a user I want to be able to create an account
-As a user I want to be able to edit my profile
-As a user I want to be able to edit my profile picture
-As a user I want to be able to find other users based on my specifications
-As a user I want to be able to look through other user's information
-As a user I want to be able to chat with other users
+*As a user I want to be able to create an account
+*As a user I want to be able to edit my profile
+*As a user I want to be able to edit my profile picture
+*As a user I want to be able to find other users based on my specifications
+*As a user I want to be able to look through other user's information
+*As a user I want to be able to chat with other users
