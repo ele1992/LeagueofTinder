@@ -2,8 +2,6 @@
 
 League of Tinder is an app where players of the game League of Legends can find and match with other players to play the game together. 
 
-## This app can solve a few problems at once:
-
   * Make new friends
   * Find players with the same goal
   * Improve together!
