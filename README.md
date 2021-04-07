@@ -23,9 +23,9 @@ The goal of this project is to build fullstack mobile app, practicing and learni
 
 ## User Story
 
-*As a user I want to be able to create an account
-*As a user I want to be able to edit my profile
-*As a user I want to be able to edit my profile picture
-*As a user I want to be able to find other users based on my specifications
-*As a user I want to be able to look through other user's information
-*As a user I want to be able to chat with other users
+* As a user I want to be able to create an account
+* As a user I want to be able to edit my profile
+* As a user I want to be able to edit my profile picture
+* As a user I want to be able to find other users based on my specifications
+* As a user I want to be able to look through other user's information
+* As a user I want to be able to chat with other users
