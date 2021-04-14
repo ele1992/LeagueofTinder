@@ -4,6 +4,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -12,13 +13,13 @@ function App() {
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: "100vh" }}
       >
-        <div className="w-100" style={{ maxWidth: "400px" }}>
+        <div className="w-100" style={{ maxWidth: "500px" }}>
           <Router>
             <AuthProvider>
               <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
-                <Route path="/" component={Dashboard} exact />
+                <PrivateRoute path="/" component={Dashboard} exact />
               </Switch>
             </AuthProvider>
           </Router>
