@@ -21,8 +21,9 @@ export default function Signup() {
       setError("");
       setLoading(true);
       await signUp(emailRef.current.value, passwordRef.current.value);
+
       setLoading(false);
-      history.push("/profile");
+      history.push("/lolinfo");
     } catch (error) {
       setLoading(false);
       setError(error.message);
@@ -34,7 +35,7 @@ export default function Signup() {
       className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh" }}
     >
-      <div className="w-100" style={{ maxWidth: "500px" }}>
+      <div className="w-100" style={{ maxWidth: "800px" }}>
         <Card>
           <Card.Body>
             <h2 className="text-center mb-4">Sign Up</h2>

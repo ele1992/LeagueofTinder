@@ -3,8 +3,9 @@ import { Card, Form, Button, Alert, Container } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import { dataBase } from "../firebase";
+import axios from "axios";
 
-export default function Profile() {
+export default function LoLInfoPage() {
   const [error, setError] = useState("");
   const [userProfile, setUserProfile] = useState({
     summonerName: "",
@@ -15,18 +16,57 @@ export default function Profile() {
   const history = useHistory();
   const { currentUser, logOut } = useAuth();
 
-  function HandleSubmit(e) {
+  async function HandleSubmit(e) {
     e.preventDefault();
+    try {
+      const playerInfo = await axios.get(
+        `/lol/summoner/v4/summoners/by-name/${userProfile.summonerName}?api_key=RGAPI-a83957f5-f87e-44ea-81d5-64845f4ec4d4`
+      );
+      console.log(playerInfo.data);
 
-    if (dataBase) {
-      dataBase.collection("Users").doc(currentUser.uid).set({
-        email: currentUser.email,
-        summonerName: userProfile.summonerName,
-        server: userProfile.server,
-        role: userProfile.role,
-        bio: userProfile.bio,
-      });
+      const playerRankings = await axios.get(
+        `/lol/league/v4/entries/by-summoner/${playerInfo.data.id}?api_key=RGAPI-a83957f5-f87e-44ea-81d5-64845f4ec4d4`
+      );
+
+      console.log(playerRankings);
+
+      let rankStats = { rank: "unranked", tier: "", wins: 0, losses: 0 };
+      if (playerRankings.data.length) {
+        rankStats = {
+          rank: playerRankings.data[0].rank,
+          tier: playerRankings.data[0].tier,
+          wins: playerRankings.data[0].wins,
+          losses: playerRankings.data[0].losses,
+        };
+      }
+      if (dataBase) {
+        dataBase
+          .collection("Users")
+          .doc(currentUser.uid)
+          .set({
+            email: currentUser.email,
+            summonerName: userProfile.summonerName,
+            server: userProfile.server,
+            role: userProfile.role,
+            bio: userProfile.bio,
+            summonerId: playerInfo.data.id,
+            puuid: playerInfo.data.puuid,
+            summonerLevel: playerInfo.data.summonerLevel,
+            profileIconId: playerInfo.data.profileIconId,
+            ...rankStats,
+
+            // rank: playerRankings.data.length
+            //   ? playerRankings.data[0].rank
+            //   : "unranked",
+            // tier: playerRankings.data ? playerRankings.data[0].tier : "",
+            // wins: playerRankings ? playerRankings.data[0].wins : 0,
+            // losses: playerRankings ? playerRankings.data[0].losses : 0,
+          });
+      }
+    } catch (e) {
+      console.log(e.message);
     }
+
     history.push("/");
   }
 
@@ -45,21 +85,16 @@ export default function Profile() {
       className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh" }}
     >
-      <div className="w-100" style={{ maxWidth: "1000px" }}>
+      <div className="w-100" style={{ maxWidth: "768px" }}>
         <Card>
           <Card.Body>
-            <h2 className="text-center mb-4">LoL Info</h2>
+            <h2 className="text-center mb-4">Summoner Information</h2>
             <h4 className="text-center mb-4">{currentUser.email}</h4>
 
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={HandleSubmit}>
-              <Form.Group id="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" />
-              </Form.Group>
-
               <Form.Group id="summoner_name">
-                <Form.Label>LoL Summoner Name</Form.Label>
+                <Form.Label>Summoner Name</Form.Label>
                 <Form.Control
                   type="text"
                   required
@@ -93,19 +128,7 @@ export default function Profile() {
                   <option>Flex</option>
                 </Form.Control>
               </Form.Group>
-              <Form.Group id="bio">
-                <Form.Label>About Self</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={userProfile.bio}
-                  onChange={(e) => {
-                    setUserProfile({
-                      ...userProfile,
-                      bio: e.target.value,
-                    });
-                  }}
-                />
-              </Form.Group>
+
               <Form.Group id="server">
                 <Form.Label>Server</Form.Label>
                 <Form.Control
@@ -133,14 +156,16 @@ export default function Profile() {
                 </Form.Control>
               </Form.Group>
               <Button type="Submit" className="w-100">
-                Update Profile
+                Confirm
               </Button>
             </Form>
           </Card.Body>
         </Card>
-        <Button variant="link" onClick={handleLogOut}>
-          Log Out
-        </Button>
+        <div className="w-100 text-center mt-2">
+          <Button variant="link" onClick={handleLogOut}>
+            Log Out
+          </Button>
+        </div>
       </div>
     </Container>
   );
