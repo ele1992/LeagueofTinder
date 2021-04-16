@@ -6,6 +6,8 @@ import { Table } from "react-bootstrap";
 function PlayerPage() {
   const [player, setPlayer] = useState({});
   const param = useParams();
+  const total = player.wins + player.losses;
+  const winrate = parseInt((player.wins / total) * 1000) / 10;
   useEffect(() => {
     function fetchData() {
       //   if (dataBase) {
@@ -45,10 +47,11 @@ function PlayerPage() {
             <td>{player.role}</td>
           </tr>
           <tr>
-            <td>Wins</td>
-            <td>{player.wins}</td>
+            <td>Total</td>
+            <td>
+              {total}({winrate}%)
+            </td>
           </tr>
-
           <tr>
             <td>Wins</td>
             <td>{player.wins}</td>

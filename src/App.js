@@ -8,6 +8,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import LoLInfoPage from "./components/LoLInfoPage";
 import PlayerPage from "./components/PlayerPage";
 import Chatroom from "./components/Chatroom";
+import withChatBar from "./hoc/withChatBar";
 
 function App() {
   return (
@@ -18,10 +19,19 @@ function App() {
             <Switch>
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
-              <PrivateRoute path="/players/:uid" component={PlayerPage} />
-              <PrivateRoute path="/chat/:room" component={Chatroom} />
-              <PrivateRoute path="/lolinfo" component={LoLInfoPage} />
-              <PrivateRoute path="/" component={Dashboard} exact />
+              <PrivateRoute
+                path="/players/:uid"
+                component={withChatBar(PlayerPage)}
+              />
+              <PrivateRoute
+                path="/chat/:room"
+                component={withChatBar(Chatroom)}
+              />
+              <PrivateRoute
+                path="/lolinfo"
+                component={withChatBar(LoLInfoPage)}
+              />
+              <PrivateRoute path="/" component={withChatBar(Dashboard)} exact />
             </Switch>
           </UserProvider>
         </AuthProvider>

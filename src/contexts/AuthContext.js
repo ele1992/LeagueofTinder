@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth } from "../firebase";
+import { auth, dataBase } from "../firebase";
 const AuthContext = React.createContext();
 
 export function useAuth() {
@@ -23,7 +23,21 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      var docRef = dataBase.collection("Users").doc(user.uid);
+      console.log(user.uid);
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            setCurrentUser(doc.data());
+          } else {
+            console.log("No such document!");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+      setCurrentUser({ uid: user.uid });
       setLoading(false);
     });
     return unsubscribe;
