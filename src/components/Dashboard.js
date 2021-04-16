@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Card, Button, Alert } from "react-bootstrap";
+import React, { useState } from "react";
+import { Card, Button } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import { dataBase } from "../firebase";
+import { useUsers } from "../contexts/UserContext";
 
 export default function Dashboard() {
   const [error, setError] = useState("");
   const history = useHistory();
+  const { users } = useUsers();
   const { currentUser, logOut } = useAuth();
-  const [users, setUsers] = useState([]);
 
   async function handleLogOut() {
     setError("");
@@ -20,45 +21,46 @@ export default function Dashboard() {
     }
   }
   function print() {
+    console.log("Contexts: ", users);
     console.log(users);
   }
 
-  useEffect(() => {
-    function fetchData() {
-      //   if (dataBase) {
-      //     const user = dataBase.collection("Users").doc(currentUser.uid);
-      //     console.log(user);
-      //   }
+  function chat(id) {
+    const ChatroomName = [currentUser.uid, id].sort().join("-");
+    if (dataBase) {
       dataBase
-        .collection("Users")
-        .get()
-        .then((querySnapshot) => {
-          const collection = [];
-          querySnapshot.forEach((player) => {
-            collection.push(player.data());
-          });
-          setUsers([...users, ...collection]);
-        })
-        .catch((error) => {
-          console.log("Error getting documents: ", error);
-        });
+        .collection("Chatrooms")
+        .doc(ChatroomName)
+        .set({ updatedAt: new Date() });
     }
-
-    fetchData();
-  }, []);
+    history.push(`/chat/${ChatroomName}`);
+  }
 
   return (
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Profile</h2>
+          <h2 className="text-center mb-4">Dash</h2>
         </Card.Body>
-        {users.map((user) => (
-          <Card.Body key={user.puuid}>
-            <h2>{user.summonerName}</h2>
-          </Card.Body>
-        ))}
       </Card>
+      <div className="d-flex flex-wrap ">
+        {users.map((user) => (
+          <Card
+            key={user.puuid}
+            className="w-25 align-items-center justify-content-center"
+          >
+            <Card.Body>
+              <Link to={`/players/${user.id}`}>
+                <h2>{user.summonerName}</h2>
+              </Link>
+              <Button className="mr-2" onClick={() => chat(user.id)}>
+                Chat
+              </Button>
+              <Button>Like</Button>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
 
       <Button variant="link" onClick={print}>
         print to console

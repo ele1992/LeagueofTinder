@@ -20,12 +20,12 @@ export default function LoLInfoPage() {
     e.preventDefault();
     try {
       const playerInfo = await axios.get(
-        `/lol/summoner/v4/summoners/by-name/${userProfile.summonerName}?api_key=RGAPI-a83957f5-f87e-44ea-81d5-64845f4ec4d4`
+        `/lol/summoner/v4/summoners/by-name/${userProfile.summonerName}?api_key=${process.env.REACT_APP_RIOT_API_KEY}`
       );
       console.log(playerInfo.data);
 
       const playerRankings = await axios.get(
-        `/lol/league/v4/entries/by-summoner/${playerInfo.data.id}?api_key=RGAPI-a83957f5-f87e-44ea-81d5-64845f4ec4d4`
+        `/lol/league/v4/entries/by-summoner/${playerInfo.data.id}?api_key=${process.env.REACT_APP_RIOT_API_KEY}`
       );
 
       console.log(playerRankings);
@@ -144,7 +144,7 @@ export default function LoLInfoPage() {
                 >
                   <option value="BR1">Brazil</option>
                   <option value="EUW1">Europe-West</option>
-                  <option value="EUN1">Europe Nordic & East</option>
+                  <option value="EUN1">Europe Nordic &amp; East</option>
                   <option value="JP1">Japan</option>
                   <option value="LA1">Latin America North</option>
                   <option value="LA2">Latin America South</option>
