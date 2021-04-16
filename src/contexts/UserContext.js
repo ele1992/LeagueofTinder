@@ -20,7 +20,6 @@ export function UserProvider({ children }) {
           .then((querySnapshot) => {
             const collection = [];
             querySnapshot.forEach((player) => {
-              console.log(player.id);
               collection.push({ ...player.data(), id: player.id });
             });
             setUsers([...users, ...collection]);

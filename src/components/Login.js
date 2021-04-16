@@ -6,10 +6,12 @@ import { Link, useHistory } from "react-router-dom";
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { logIn } = useAuth();
+  const { currentUser, logIn } = useAuth();
   const history = useHistory();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  console.log(currentUser);
 
   async function HandleSubmit(e) {
     e.preventDefault();

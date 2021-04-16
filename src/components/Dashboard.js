@@ -26,12 +26,12 @@ export default function Dashboard() {
   }
 
   function chat(id) {
-    const ChatroomName = [currentUser.uid, id].sort().join("-");
+    const ChatroomName = [currentUser.uid, id].sort().join("_");
     if (dataBase) {
       dataBase
         .collection("Chatrooms")
         .doc(ChatroomName)
-        .set({ updatedAt: new Date() });
+        .set({ createdAt: new Date() });
     }
     history.push(`/chat/${ChatroomName}`);
   }

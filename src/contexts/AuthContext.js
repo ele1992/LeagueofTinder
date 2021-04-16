@@ -8,6 +8,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
+  const [currentPlayerInfo, setCurrentPlayerInfo] = useState();
   const [loading, setLoading] = useState(true);
 
   function signUp(email, password) {
@@ -23,13 +24,13 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log(user);
       var docRef = dataBase.collection("Users").doc(user.uid);
-      console.log(user.uid);
       docRef
         .get()
         .then((doc) => {
           if (doc.exists) {
-            setCurrentUser(doc.data());
+            setCurrentPlayerInfo(doc.data());
           } else {
             console.log("No such document!");
           }
@@ -37,13 +38,13 @@ export function AuthProvider({ children }) {
         .catch((error) => {
           console.log("Error getting document:", error);
         });
-      setCurrentUser({ uid: user.uid });
+      setCurrentUser(user);
       setLoading(false);
     });
     return unsubscribe;
   }, []);
 
-  const value = { currentUser, signUp, logIn, logOut };
+  const value = { currentUser, currentPlayerInfo, signUp, logIn, logOut };
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}

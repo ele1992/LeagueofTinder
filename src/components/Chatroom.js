@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { dataBase } from "../firebase";
 import { useParams } from "react-router-dom";
@@ -6,18 +6,32 @@ import { useAuth } from "../contexts/AuthContext";
 export default function Chatroom() {
   const [message, setMessage] = useState("");
   const param = useParams();
-  const { currentUser } = useAuth();
+  // const messageRef = dataBase
+  //   .collection("Chatrooms")
+  //   .doc(param.rooms)
+  //   .collection("messages");
+  // const query = messageRef.orderBy("createdAt");
+  // const [messages] = useCollectionData(query);
+
+  const { currentUser, currentPlayerInfo } = useAuth();
   function handleSubmit(e) {
     e.preventDefault();
     if (dataBase) {
-      console.log(param.room);
-      console.log("currentuser:", currentUser);
-      dataBase.collection("Chatrooms").doc(param.room).set({
-        message: message,
-      });
+      dataBase
+        .collection("Chatrooms")
+        .doc(param.room)
+        .collection("messages")
+        .add({
+          message: message,
+          id: currentUser.uid,
+          name: currentPlayerInfo.summonerName,
+          createdAt: new Date(),
+        });
     }
     setMessage("");
   }
+
+  useEffect(() => {});
 
   return (
     <div>
