@@ -44,7 +44,7 @@ export default function Dashboard() {
     }
     history.push(`/chat/${ChatroomName}`);
   }
-
+  console.log(error);
   return (
     <>
       <Card>

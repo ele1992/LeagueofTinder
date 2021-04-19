@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { dataBase } from "../firebase";
-import { Card, Table } from "react-bootstrap";
 
 function PlayerPage() {
   const [player, setPlayer] = useState({});
@@ -27,7 +27,7 @@ function PlayerPage() {
     }
 
     fetchData();
-  }, []);
+  }, [param.uid]);
   return (
     <div>
       <h2 style={{ textAlign: "center" }}>

@@ -24,20 +24,23 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      var docRef = dataBase.collection("Users").doc(user.uid);
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setCurrentPlayerInfo(doc.data());
-          } else {
-            console.log("No such document!");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-      setCurrentUser(user);
+      console.log(user);
+      if (user) {
+        var docRef = dataBase.collection("Users").doc(user.uid);
+        docRef
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setCurrentPlayerInfo(doc.data());
+            } else {
+              console.log("No such document!");
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting document:", error);
+          });
+        setCurrentUser(user);
+      }
       setLoading(false);
     });
     return unsubscribe;

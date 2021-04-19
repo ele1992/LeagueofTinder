@@ -9,7 +9,6 @@ export function useUsers() {
 
 export function UserProvider({ children }) {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     function fetchData() {
@@ -22,7 +21,7 @@ export function UserProvider({ children }) {
             querySnapshot.forEach((player) => {
               collection.push({ ...player.data(), id: player.id });
             });
-            setUsers([...users, ...collection]);
+            setUsers((users) => [...users, ...collection]);
           })
           .catch((error) => {
             console.log("Error getting documents: ", error);
@@ -30,7 +29,6 @@ export function UserProvider({ children }) {
       }
     }
     fetchData();
-    setLoading(false);
   }, []);
 
   const value = { users };

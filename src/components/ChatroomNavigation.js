@@ -33,11 +33,11 @@ function ChatroomNavigation() {
         {chatrooms ? (
           chatrooms.map((chatroom, index) => {
             return (
-              <NavLink to={`/chat/${chatroom.id}`}>
-                <ListGroup.Item key={index}>
+              <NavLink key={index} to={`/chat/${chatroom.id}`}>
+                <ListGroup.Item>
                   {chatroom.users.map((user) => {
                     if (user.id !== currentUser.uid) {
-                      return <h4>{user.name}</h4>;
+                      return <h4 key={user.id}>{user.name}</h4>;
                     } else {
                       return null;
                     }

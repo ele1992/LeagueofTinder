@@ -59,14 +59,19 @@ export default function Chatroom() {
 
   useEffect(() => {
     async function getData() {
-      if (dataBase) {
-        const data = await dataBase
-          .collection("Chatrooms")
-          .doc(param.room)
-          .get();
-        setMatchedUser(
-          data.data().users.filter((user) => user.id !== currentUser.uid)
-        );
+      try {
+        if (dataBase) {
+          const data = await dataBase
+            .collection("Chatrooms")
+            .doc(param.room)
+            .get();
+
+          setMatchedUser(
+            data.data().users.filter((user) => user.id !== currentUser.uid)
+          );
+        }
+      } catch (e) {
+        console.log(e.message);
       }
     }
     getData();
