@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [error, setError] = useState("");
   const history = useHistory();
   const { users } = useUsers();
-  const { currentUser, logOut } = useAuth();
+  const { currentUser, currentPlayerInfo, logOut } = useAuth();
 
   async function handleLogOut() {
     setError("");
@@ -25,13 +25,20 @@ export default function Dashboard() {
     console.log(users);
   }
 
-  function chat(id) {
+  function chat(id, name) {
     const ChatroomName = [currentUser.uid, id].sort().join("_");
     if (dataBase) {
       dataBase
         .collection("Chatrooms")
         .doc(ChatroomName)
-        .set({ createdAt: new Date() });
+        .set({
+          users: [
+            { id: currentUser.uid, name: currentPlayerInfo.summonerName },
+            { id, name },
+          ],
+          lastMessage: "New chat",
+          createdAt: new Date(),
+        });
     }
     history.push(`/chat/${ChatroomName}`);
   }
@@ -53,7 +60,10 @@ export default function Dashboard() {
               <Link to={`/players/${user.id}`}>
                 <h2>{user.summonerName}</h2>
               </Link>
-              <Button className="mr-2" onClick={() => chat(user.id)}>
+              <Button
+                className="mr-2"
+                onClick={() => chat(user.id, user.summonerName)}
+              >
                 Chat
               </Button>
               <Button>Like</Button>

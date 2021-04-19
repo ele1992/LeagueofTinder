@@ -24,7 +24,6 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log(user);
       var docRef = dataBase.collection("Users").doc(user.uid);
       docRef
         .get()
