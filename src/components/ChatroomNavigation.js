@@ -18,7 +18,7 @@ function ChatroomNavigation() {
             ...doc.data(),
             id: doc.id,
           }));
-          console.log("Logging data", data);
+
           setChatrooms(data);
         });
       return unsubscribe;

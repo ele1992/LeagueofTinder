@@ -35,7 +35,7 @@ export default function Chatroom() {
         .doc(param.room)
         .update({ lastMessage: message, updatedAt: new Date() });
     }
-    console.log(matchedUser);
+
     setMessage("");
   }
 
