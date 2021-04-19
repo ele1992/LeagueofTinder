@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { dataBase } from "../firebase";
-import { Table } from "react-bootstrap";
+import { Card, Table } from "react-bootstrap";
 
 function PlayerPage() {
   const [player, setPlayer] = useState({});
@@ -29,7 +29,7 @@ function PlayerPage() {
     fetchData();
   }, []);
   return (
-    <>
+    <div>
       <h2 style={{ textAlign: "center" }}>
         {player.summonerName} <small>({player.summonerLevel})</small>
       </h2>
@@ -62,7 +62,7 @@ function PlayerPage() {
           </tr>
         </tbody>
       </Table>
-    </>
+    </div>
   );
 }
 

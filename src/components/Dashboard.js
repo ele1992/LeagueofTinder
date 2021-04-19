@@ -36,8 +36,10 @@ export default function Dashboard() {
             { id: currentUser.uid, name: currentPlayerInfo.summonerName },
             { id, name },
           ],
+          userIds: [currentUser.uid, id],
           lastMessage: "New chat",
           createdAt: new Date(),
+          updatedAt: new Date(),
         });
     }
     history.push(`/chat/${ChatroomName}`);

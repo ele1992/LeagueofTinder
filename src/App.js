@@ -26,6 +26,7 @@ function App() {
               <PrivateRoute
                 path="/chat/:room"
                 component={withChatBar(Chatroom)}
+                exact
               />
               <PrivateRoute
                 path="/lolinfo"
