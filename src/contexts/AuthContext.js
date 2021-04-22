@@ -19,6 +19,8 @@ export function AuthProvider({ children }) {
     return auth.signInWithEmailAndPassword(email, password);
   }
   function logOut() {
+    setCurrentPlayerInfo(null);
+    setCurrentUser(null);
     return auth.signOut();
   }
 

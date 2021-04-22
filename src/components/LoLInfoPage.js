@@ -22,6 +22,9 @@ export default function LoLInfoPage() {
       const playerInfo = await axios.get(
         `/lol/summoner/v4/summoners/by-name/${userProfile.summonerName}?api_key=${process.env.REACT_APP_RIOT_API_KEY}`
       );
+      if (!playerInfo) {
+        return setError("Summoner does not exist");
+      }
       console.log(playerInfo.data);
 
       const playerRankings = await axios.get(
@@ -62,12 +65,15 @@ export default function LoLInfoPage() {
             // wins: playerRankings ? playerRankings.data[0].wins : 0,
             // losses: playerRankings ? playerRankings.data[0].losses : 0,
           });
+        history.push("/");
       }
     } catch (e) {
-      console.log(e.message);
+      if (e.message.includes("404")) {
+        setError("Summoner not found");
+      } else {
+        setError(e.message);
+      }
     }
-
-    history.push("/");
   }
 
   async function handleLogOut() {

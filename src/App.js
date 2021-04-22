@@ -28,10 +28,7 @@ function App() {
                 component={withChatBar(Chatroom)}
                 exact
               />
-              <PrivateRoute
-                path="/lolinfo"
-                component={withChatBar(LoLInfoPage)}
-              />
+              <PrivateRoute path="/lolinfo" component={LoLInfoPage} />
               <PrivateRoute path="/" component={withChatBar(Dashboard)} exact />
             </Switch>
           </UserProvider>
