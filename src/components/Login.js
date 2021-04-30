@@ -6,12 +6,10 @@ import { Link, useHistory } from "react-router-dom";
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { currentUser, logIn } = useAuth();
+  const { logIn } = useAuth();
   const history = useHistory();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  console.log(currentUser);
 
   async function HandleSubmit(e) {
     e.preventDefault();
@@ -21,7 +19,7 @@ export default function Login() {
       setLoading(true);
       await logIn(emailRef.current.value, passwordRef.current.value);
       setLoading(false);
-      history.push("/");
+      history.push("/dash");
     } catch (error) {
       setLoading(false);
       setError(error.message);

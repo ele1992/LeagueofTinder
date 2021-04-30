@@ -1,5 +1,5 @@
 import React from "react";
-import ChatBarPlayerInfo from "../components/ChatBarPlayerInfo";
+// import ChatBarPlayerInfo from "../components/ChatBarPlayerInfo";
 import ChatroomNavigation from "../components/ChatroomNavigation";
 
 const withChatBar = (Component) => (props) => (
@@ -12,7 +12,7 @@ const withChatBar = (Component) => (props) => (
     }}
   >
     <div style={{ width: "250px", minWidth: "250px" }}>
-      <ChatBarPlayerInfo />
+      {/* <ChatBarPlayerInfo /> */}
       <ChatroomNavigation />
     </div>
     <main>

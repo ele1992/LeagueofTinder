@@ -12,7 +12,7 @@ function ChatBarPlayerInfo() {
   return currentPlayerInfo ? (
     <Card style={{ textAlign: "center" }}>
       <Card.Body>
-        <div style={{ position: "fixed", top: "4%", left: "2%" }}>
+        <div style={{ position: "fixed", top: "10%", left: "2%" }}>
           <Link to="/">
             <IconButton>
               <CollectionsIcon />
