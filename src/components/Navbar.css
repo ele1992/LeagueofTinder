@@ -1,0 +1,7 @@
+.arrowIcon {
+  color: linear-gradient(#fd297b, #ff655b);
+}
+
+.arrowIcon :hover {
+  color: red;
+}

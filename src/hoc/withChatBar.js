@@ -11,7 +11,12 @@ const withChatBar = (Component) => (props) => (
       padding: "5px",
     }}
   >
-    <div style={{ width: "250px", minWidth: "250px" }}>
+    <div
+      style={{
+        width: "250px",
+        minWidth: "250px",
+      }}
+    >
       {/* <ChatBarPlayerInfo /> */}
       <ChatroomNavigation />
     </div>

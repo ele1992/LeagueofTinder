@@ -35,12 +35,15 @@ export function AuthProvider({ children }) {
             if (doc.exists) {
               setCurrentPlayerInfo(doc.data());
             } else {
-              console.log("No such document!");
+              console.log("No player!");
             }
           })
           .catch((error) => {
             console.log("Error getting document:", error);
           });
+        docRef.onSnapshot((doc) => {
+          setCurrentPlayerInfo(doc.data());
+        });
         setCurrentUser(user);
       }
       setLoading(false);

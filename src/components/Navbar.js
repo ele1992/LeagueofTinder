@@ -6,6 +6,7 @@ import { Button, Modal, Form, Alert } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./Navbar.css";
+import { ArrowRightSquare } from "react-bootstrap-icons";
 
 export default function Navbar() {
   const [show, setShow] = useState(false);
@@ -51,6 +52,7 @@ export default function Navbar() {
         backgroundColor: "black",
         padding: "10px",
         display: "flex",
+        alignItems: "center",
         justifyContent: "space-between",
       }}
     >
@@ -67,20 +69,30 @@ export default function Navbar() {
           alt="logo"
         />
       </Link>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header>
-          <h2 className="text-center mb-4">Log In</h2>
+          <h2>Sign In</h2>
         </Modal.Header>
         <Modal.Body>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={HandleSubmit}>
             <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
+              <Form.Control
+                placeholder="email"
+                size="lg"
+                type="email"
+                ref={emailRef}
+                required
+              />
             </Form.Group>
             <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
+              <Form.Control
+                size="lg"
+                placeholder="password"
+                type="password"
+                ref={passwordRef}
+                required
+              />
             </Form.Group>
             <Button
               disabled={loading}
@@ -89,24 +101,35 @@ export default function Navbar() {
               onClick={() => {
                 handleClose();
               }}
+              variant="link"
             >
-              Log In
+              <ArrowRightSquare className="arrowIcon" size={60} />
             </Button>
           </Form>
         </Modal.Body>
       </Modal>
       {!currentPlayerInfo ? null : (
-        <h2 style={{ color: "white", display: "flex", alignItems: "center" }}>
-          {currentPlayerInfo.summonerName}
-        </h2>
+        <h2 style={{ color: "white" }}>{currentPlayerInfo.summonerName}</h2>
       )}
       {!currentUser ? (
-        <Button variant="dark" onClick={handleModal}>
-          Log In
+        <Button
+          className="logInButton"
+          onClick={handleModal}
+          style={{
+            width: "100px",
+            height: "60px",
+          }}
+        >
+          Sign In
         </Button>
       ) : (
-        <Button variant="dark" onClick={handleLogOut}>
-          Log Out
+        <Button
+          className="logOutButton"
+          variant="dark"
+          onClick={handleLogOut}
+          style={{ width: "100px", height: "60px" }}
+        >
+          Sign Out
         </Button>
       )}
     </div>

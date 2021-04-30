@@ -3,7 +3,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { UserProvider } from "./contexts/UserContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
-import Login from "./components/Login";
+
 import PrivateRoute from "./components/PrivateRoute";
 import LoLInfoPage from "./components/LoLInfoPage";
 import PlayerPage from "./components/PlayerPage";
@@ -11,6 +11,7 @@ import Chatroom from "./components/Chatroom";
 import withChatBar from "./hoc/withChatBar";
 import Navbar from "./components/Navbar";
 import HomePage from "./components/HomePage";
+import "./App.css"
 
 function App() {
   return (
