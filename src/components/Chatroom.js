@@ -88,31 +88,38 @@ export default function Chatroom() {
         alignItems: "center",
       }}
     >
-      <Card className="mb-2 d-flex" style={{ width: "300px" }}>
-        <Card.Body>
-          {matchedUser ? (
-            <div
-              className="d-flex"
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <img
-                style={{ maxWidth: "70px", borderRadius: "5%" }}
-                src={`http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${matchedUser[0].profileIconId}.jpg`}
-                alt="profile icon"
-              />
-              <h2 style={{ textAlign: "center", paddingLeft: "20px" }}>
-                {matchedUser[0].name}
-              </h2>
-              <div></div>
-            </div>
-          ) : (
-            <></>
-          )}
-        </Card.Body>
-      </Card>
+      {matchedUser ? (
+        <div
+          className="d-flex"
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "25px",
+          }}
+        >
+          <img
+            style={{
+              maxWidth: "70px",
+              borderRadius: "5%",
+              border: "solid 1px white",
+            }}
+            src={`http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${matchedUser[0].profileIconId}.jpg`}
+            alt="profile icon"
+          />
+          <h2
+            style={{
+              textAlign: "center",
+              paddingLeft: "20px",
+            }}
+          >
+            {matchedUser[0].name}
+          </h2>
+          <div></div>
+        </div>
+      ) : (
+        <></>
+      )}
+
       <div style={{ width: "60vw" }}>
         <Card
           style={{
@@ -147,6 +154,7 @@ export default function Chatroom() {
                           className="chatProfileIcon"
                           src={`http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${matchedUser[0].profileIconId}.jpg`}
                           alt={msg.name}
+                          style={{ border: "solid black 1px" }}
                         />
                       ) : null}
                     </p>

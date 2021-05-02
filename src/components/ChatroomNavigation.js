@@ -32,10 +32,11 @@ function ChatroomNavigation() {
       </Card>
       <Card
         style={{
-          maxHeight: "80vh",
+          maxHeight: "72vh",
           overflow: "auto",
-          minHeight: "80vh",
-          backgroundColor: "grey",
+          minHeight: "72vh",
+          backgroundColor: "#a9a9a9",
+          opacity: 0.9,
         }}
       >
         <ListGroup>
@@ -67,6 +68,7 @@ function ChatroomNavigation() {
                                 style={{
                                   maxWidth: "50px",
                                   borderRadius: "100%",
+                                  border: "solid 1px black",
                                 }}
                                 src={`http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${user.profileIconId}.jpg`}
                                 alt="profile icon"

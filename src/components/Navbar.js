@@ -108,7 +108,9 @@ export default function Navbar() {
           </Form>
         </Modal.Body>
       </Modal>
-      {!currentPlayerInfo ? null : (
+      {!currentPlayerInfo ? (
+        <h2 style={{ color: "white" }}>League of Tinder</h2>
+      ) : (
         <h2 style={{ color: "white" }}>{currentPlayerInfo.summonerName}</h2>
       )}
       {!currentUser ? (

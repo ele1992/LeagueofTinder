@@ -139,7 +139,7 @@ export default function Dashboard() {
                   </Button>
                   <Modal show={modal === index} onHide={closeModal} centered>
                     <Modal.Header>
-                      <h2>{user.summonerName}</h2>
+                      <h2>{user.summonerName + `  (${user.summonerLevel})`}</h2>
                     </Modal.Header>
                     <Modal.Body>
                       <Table>
