@@ -8,18 +8,13 @@ League of Tinder is an app where players of the game League of Legends can find 
 
 ## Technologies and concepts I used in this project
 
-  *  React-Native
-  *  Redux
-  *  Express
-  *  REST API
-  *  Sequelize as ORM
-  *  One-to-many models
-  *  Many-to-many models 
-  
-  * Bootstrap 
+  *  React
+  *  Axios
+  *  Riot API
+  *  Firebase
+  *  Bootstrap 
 
-The goal of this project is to build fullstack mobile app, practicing and learning new technologies. I learnt these new tools on my own by reading documentation, reading articles and watching tutorials.
-
+The goal of this project is to build an app from scratch, practicing and learning new technologies. I learnt these new tools on my own by reading documentation, reading articles and watching tutorials.
 
 ## User Story
 
