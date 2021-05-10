@@ -2,13 +2,16 @@ import React, { useRef, useState } from "react";
 import { Form, Card, Button, Alert, Modal } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./HomePage.css";
 
 export default function HomePage() {
+  const { signUp } = useAuth();
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signUp } = useAuth();
   const history = useHistory();
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
@@ -38,19 +41,11 @@ export default function HomePage() {
   }
   return (
     <>
-      <div className="d-flex align-items-center justify-content-center">
-        {/* <img
-          style={{
-            maxWidth: "100vw",
-            zIndex: "-1",
-          }}
-          src={wallpaper}
-          alt="LoL background"
-        /> */}
+      <div className="HomePage_Container">
         <Modal show={show} onHide={handleClose} centered>
           <Card>
             <Card.Body>
-              <h2 className="text-center mb-4">Sign Up</h2>
+              <h2 className="Modal_SignUp_Title">Sign Up</h2>
 
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={HandleSubmit}>
@@ -70,7 +65,11 @@ export default function HomePage() {
                     required
                   />
                 </Form.Group>
-                <Button disabled={loading} type="Submit" className="w-100">
+                <Button
+                  disabled={loading}
+                  type="Submit"
+                  className="Modal_SignUp_Button"
+                >
                   Sign Up
                 </Button>
               </Form>
@@ -78,33 +77,15 @@ export default function HomePage() {
           </Card>
         </Modal>
         <Button
+          className="HomePage_SignUp_Button"
           size="lg"
-          style={{
-            position: "fixed",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%,-50%)",
-            height: "80px",
-            width: "220px",
-          }}
           onClick={() => {
             handleModal();
           }}
         >
           Sign Up
         </Button>
-        <div
-          style={{
-            position: "fixed",
-            left: "0",
-            bottom: "0",
-            width: "100%",
-            backgroundColor: "black",
-            padding: "20px",
-            textAlign: "center",
-            color: "white",
-          }}
-        >
+        <div className="HomePage_Footer">
           <h4>
             "Would I rather be feared or loved? Easy. Both. I want people to be
             afraid of how much they love me." - Michael Scott

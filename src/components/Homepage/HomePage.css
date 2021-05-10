@@ -1,0 +1,31 @@
+.HomePage_Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Modal_SignUp_Title {
+  text-align: center;
+  margin-bottom: 2%;
+}
+.Modal_SignUp_Button {
+  width: 100%;
+}
+.HomePage_SignUp_Button {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 80px;
+  width: 220px;
+}
+.HomePage_Footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
