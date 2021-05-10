@@ -3,7 +3,10 @@ import { Card, Form, Button, Alert, Container } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import { dataBase } from "../../firebase";
+import Footer from "../Footer/Footer";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./LoLInfoPage.css";
 
 export default function LoLInfoPage() {
   const [error, setError] = useState("");
@@ -58,13 +61,6 @@ export default function LoLInfoPage() {
             summonerLevel: playerInfo.data.summonerLevel,
             profileIconId: playerInfo.data.profileIconId,
             ...rankStats,
-
-            // rank: playerRankings.data.length
-            //   ? playerRankings.data[0].rank
-            //   : "unranked",
-            // tier: playerRankings.data ? playerRankings.data[0].tier : "",
-            // wins: playerRankings ? playerRankings.data[0].wins : 0,
-            // losses: playerRankings ? playerRankings.data[0].losses : 0,
           });
         history.push("/dash");
       }
@@ -79,27 +75,11 @@ export default function LoLInfoPage() {
 
   return (
     <>
-      {/* <img
-        style={{ minWidth: "100vw", zIndex: "0" }}
-        src={wallpaper}
-        alt="LoL background"
-      /> */}
-      <Container
-        className="d-flex align-items-center justify-content-center"
-        style={{
-          position: "fixed",
-          zIndex: 1,
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-        }}
-      >
-        <div className="w-100" style={{ maxWidth: "500px" }}>
+      <Container className="LoLInfoPage_Container">
+        <div className="LolInfoPage_Div">
           <Card>
             <Card.Body>
-              <h2 className="text-center mb-4">Summoner Information</h2>
-              <h4 className="text-center mb-4">{currentUser.email}</h4>
+              <h2 className="LolInfoPage_Title">Summoner Information</h2>
 
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={HandleSubmit}>
@@ -154,7 +134,6 @@ export default function LoLInfoPage() {
                   >
                     <option value="EUW1">Europe-West</option>
                     <option value="BR1">Brazil</option>
-
                     <option value="EUN1">Europe Nordic &amp; East</option>
                     <option value="JP1">Japan</option>
                     <option value="LA1">Latin America North</option>
@@ -174,23 +153,7 @@ export default function LoLInfoPage() {
           </Card>
         </div>
       </Container>
-      <div
-        style={{
-          position: "fixed",
-          left: "0",
-          bottom: "0",
-          width: "100%",
-          backgroundColor: "black",
-          padding: "20px",
-          textAlign: "center",
-          color: "white",
-        }}
-      >
-        <h4>
-          "Would I rather be feared or loved? Easy. Both. I want people to be
-          afraid of how much they love me." - Michael Scott
-        </h4>
-      </div>
+      <Footer />
     </>
   );
 }

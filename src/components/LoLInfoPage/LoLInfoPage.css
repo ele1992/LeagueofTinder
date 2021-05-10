@@ -1,0 +1,18 @@
+.LoLInfoPage_Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.LolInfoPage_Div {
+  width: 100%;
+  max-width: 500px;
+}
+.LolInfoPage_Title {
+  text-align: center;
+  margin-bottom: 5%;
+}

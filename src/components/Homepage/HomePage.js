@@ -3,6 +3,7 @@ import { Form, Card, Button, Alert, Modal } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Footer from "../Footer/Footer";
 import "./HomePage.css";
 
 export default function HomePage() {
@@ -85,12 +86,7 @@ export default function HomePage() {
         >
           Sign Up
         </Button>
-        <div className="HomePage_Footer">
-          <h4>
-            "Would I rather be feared or loved? Easy. Both. I want people to be
-            afraid of how much they love me." - Michael Scott
-          </h4>
-        </div>
+        <Footer />
       </div>
     </>
   );
