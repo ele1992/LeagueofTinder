@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Card, Form, Button, Alert, Container } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
-import { dataBase } from "../firebase";
+import { dataBase } from "../../firebase";
 import axios from "axios";
-import wallpaper from "../images/LeagueBackground.png";
 
 export default function LoLInfoPage() {
   const [error, setError] = useState("");

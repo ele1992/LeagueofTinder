@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import { dataBase } from "../firebase";
+import { useAuth } from "../../contexts/AuthContext";
+import { dataBase } from "../../firebase";
 import "./ChatroomNavigation.css";
 
 function ChatroomNavigation() {

@@ -1,17 +1,14 @@
-import Signup from "./components/Signup";
 import { AuthProvider } from "./contexts/AuthContext";
 import { UserProvider } from "./contexts/UserContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
-
+import Dashboard from "./components/Dashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
-import LoLInfoPage from "./components/LoLInfoPage";
-import PlayerPage from "./components/PlayerPage";
-import Chatroom from "./components/Chatroom";
+import LoLInfoPage from "./components/LoLInfoPage/LoLInfoPage";
+import Chatroom from "./components/Chatroom/Chatroom";
 import withChatBar from "./hoc/withChatBar";
-import Navbar from "./components/Navbar";
-import HomePage from "./components/HomePage";
-import "./App.css"
+import Navbar from "./components/Navbar/Navbar";
+import HomePage from "./components/Homepage/HomePage";
+import "./App.css";
 
 function App() {
   return (
@@ -22,11 +19,11 @@ function App() {
             <Navbar />
             <Switch>
               <Route path="/" exact component={HomePage} />
-              <Route path="/signup" component={Signup} />
-              <PrivateRoute
+
+              {/* <PrivateRoute
                 path="/players/:uid"
                 component={withChatBar(PlayerPage)}
-              />
+              /> */}
               <PrivateRoute
                 path="/chat/:room"
                 component={withChatBar(Chatroom)}

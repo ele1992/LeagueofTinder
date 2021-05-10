@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { dataBase } from "../firebase";
+import { dataBase } from "../../firebase";
 
 function PlayerPage() {
   const [player, setPlayer] = useState({});

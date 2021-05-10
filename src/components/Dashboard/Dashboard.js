@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Modal, Table } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
-import { dataBase } from "../firebase";
-import { useUsers } from "../contexts/UserContext";
+import { dataBase } from "../../firebase";
+import { useUsers } from "../../contexts/UserContext";
 import { HandThumbsUpFill } from "react-bootstrap-icons";
 
 export default function Dashboard() {
@@ -207,7 +207,7 @@ export default function Dashboard() {
               </Card>
             );
           } else {
-            <></>;
+            return <></>;
           }
         })}
       </div>

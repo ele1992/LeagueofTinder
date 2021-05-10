@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Form, Card, Button, Alert, Modal } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
-import wallpaper from "../images/LeagueBackground.png";
 
 export default function HomePage() {
   const emailRef = useRef();

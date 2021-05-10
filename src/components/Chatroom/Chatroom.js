@@ -1,65 +1,77 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Form, Button, Card } from "react-bootstrap";
-import { dataBase } from "../firebase";
+import { dataBase } from "../../firebase";
 import { useParams } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import "./Chatroom.css";
+import { useAuth } from "../../contexts/AuthContext";
 import { ChevronBarRight } from "react-bootstrap-icons";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Chatroom.css";
+
 export default function Chatroom() {
   const [message, setMessage] = useState("");
   const [receivedMessages, setReceivedMessages] = useState();
   const [matchedUser, setMatchedUser] = useState();
+  const { currentUser, currentPlayerInfo } = useAuth();
+  const param = useParams();
+
   const setRef = useCallback((node) => {
     if (node) {
       node.scrollIntoView({ smooth: true });
     }
   }, []);
-  const param = useParams();
 
-  const { currentUser, currentPlayerInfo } = useAuth();
   function handleSubmit(e) {
     e.preventDefault();
     if (dataBase) {
-      dataBase
-        .collection("Chatrooms")
-        .doc(param.room)
-        .collection("messages")
-        .add({
-          text: message,
-          userId: currentUser.uid,
-          name: currentPlayerInfo.summonerName,
-          createdAt: new Date(),
-        });
-
-      dataBase
-        .collection("Chatrooms")
-        .doc(param.room)
-        .update({ lastMessage: message, updatedAt: new Date() });
+      sendMessage();
+      setLastMessage();
     }
 
     setMessage("");
   }
 
+  function sendMessage() {
+    dataBase
+      .collection("Chatrooms")
+      .doc(param.room)
+      .collection("messages")
+      .add({
+        text: message,
+        userId: currentUser.uid,
+        name: currentPlayerInfo.summonerName,
+        createdAt: new Date(),
+      });
+  }
+  function setLastMessage() {
+    dataBase
+      .collection("Chatrooms")
+      .doc(param.room)
+      .update({ lastMessage: message, updatedAt: new Date() });
+  }
+
   useEffect(() => {
-    if (dataBase) {
-      const unsubscribe = dataBase
-        .collection("Chatrooms")
-        .doc(param.room)
-        .collection("messages")
-        .orderBy("createdAt")
-        .onSnapshot((querySnapshot) => {
-          const data = querySnapshot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          }));
-          setReceivedMessages(data);
-        });
-      return unsubscribe;
+    function getChatroomMessages() {
+      if (dataBase) {
+        const unsubscribe = dataBase
+          .collection("Chatrooms")
+          .doc(param.room)
+          .collection("messages")
+          .orderBy("createdAt")
+          .onSnapshot((querySnapshot) => {
+            const data = querySnapshot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }));
+            setReceivedMessages(data);
+          });
+        return unsubscribe;
+      }
     }
+    getChatroomMessages();
   }, [param.room]);
 
   useEffect(() => {
-    async function getData() {
+    async function getCurrentChatPartner() {
       try {
         if (dataBase) {
           const data = await dataBase
@@ -75,61 +87,27 @@ export default function Chatroom() {
         console.log(e.message);
       }
     }
-    getData();
+    getCurrentChatPartner();
   }, [currentUser.uid, param.room]);
 
   return (
-    <div
-      className="d-flex flex-column"
-      style={{
-        paddingLeft: "1vw",
-        width: "80vw",
-        maxWidth: "80vw,",
-        alignItems: "center",
-      }}
-    >
+    <div className="Chatroom_Container">
       {matchedUser ? (
-        <div
-          className="d-flex"
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "25px",
-          }}
-        >
+        <div className="Chatroom_Container_div">
           <img
-            style={{
-              maxWidth: "70px",
-              borderRadius: "5%",
-              border: "solid 1px white",
-            }}
+            className="Chatroom_Icon"
             src={`http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${matchedUser[0].profileIconId}.jpg`}
             alt="profile icon"
           />
-          <h2
-            style={{
-              textAlign: "center",
-              paddingLeft: "20px",
-            }}
-          >
-            {matchedUser[0].name}
-          </h2>
+          <h2 className="Chatroom_Title">{matchedUser[0].name}</h2>
           <div></div>
         </div>
       ) : (
         <></>
       )}
 
-      <div style={{ width: "60vw" }}>
-        <Card
-          style={{
-            padding: "20px",
-
-            height: "60vh",
-            overflow: "auto",
-            borderRadius: "15px 15px 0 0",
-          }}
-        >
+      <div className="Chatroom_Chatbox_Container">
+        <Card className="Chatroom_Chatbox_Card">
           <div>
             {receivedMessages ? (
               receivedMessages.map((msg, index) => {
@@ -154,7 +132,6 @@ export default function Chatroom() {
                           className="chatProfileIcon"
                           src={`http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${matchedUser[0].profileIconId}.jpg`}
                           alt={msg.name}
-                          style={{ border: "solid black 1px" }}
                         />
                       ) : null}
                     </p>
@@ -172,7 +149,7 @@ export default function Chatroom() {
         <Form onSubmit={handleSubmit}>
           <Form.Group className="chatInputs">
             <Form.Control
-              style={{ height: "100px", borderRadius: "0 0 0 15px" }}
+              className="Chatroom_Textinput"
               type="text"
               required
               value={message}
@@ -180,10 +157,7 @@ export default function Chatroom() {
                 setMessage(e.target.value);
               }}
             />
-            <Button
-              style={{ width: 100, height: 100, borderRadius: "0 0 15px 0" }}
-              type="Submit"
-            >
+            <Button className="Chatroom_Button" type="Submit">
               Send <ChevronBarRight />
             </Button>
           </Form.Group>

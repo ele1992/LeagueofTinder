@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../images/Logo.png";
-import invertedLogo from "../images/invertedLogo.png";
+import Logo from "../../images/Logo.png";
+import invertedLogo from "../../images/invertedLogo.png";
 import { Button, Modal, Form, Alert } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import "./Navbar.css";
 import { ArrowRightSquare } from "react-bootstrap-icons";
 
