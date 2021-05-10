@@ -2,3 +2,48 @@
   background-color: black;
   padding: 2px;
 }
+
+.ChatNavigation_Title {
+  text-align: center;
+}
+
+.ChatNavigation_Container {
+  max-height: 72vh;
+  overflow: auto;
+  min-height: 72vh;
+  background-color: #a9a9a9;
+  opacity: 0.9;
+}
+.ChatNavigation_ListItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.ChatNavigation_Chatbox {
+  display: flex;
+}
+
+.ChatNavigation_InnerChatbox_Left {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex: 1;
+}
+.ChatNavigation_ProfileIcon {
+  max-width: 50px;
+  border-radius: 100%;
+  border: solid 1px black;
+}
+.ChatNavigation_InnerChatbox_Right {
+  flex: 2;
+}
+.ChatNavigation_Username {
+  text-align: center;
+}
+.ChatNavigation_LastMessage {
+  text-align: center;
+  max-width: 134px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

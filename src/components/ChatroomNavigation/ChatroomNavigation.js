@@ -10,35 +10,30 @@ function ChatroomNavigation() {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    if (dataBase) {
-      const unsubscribe = dataBase
-        .collection("Chatrooms")
-        .where("userIds", "array-contains", currentUser.uid)
-        .onSnapshot((querySnapshot) => {
-          const data = querySnapshot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          }));
+    function getListOfChatrooms() {
+      if (dataBase) {
+        const unsubscribe = dataBase
+          .collection("Chatrooms")
+          .where("userIds", "array-contains", currentUser.uid)
+          .onSnapshot((querySnapshot) => {
+            const data = querySnapshot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }));
 
-          setChatrooms(data);
-        });
-      return unsubscribe;
+            setChatrooms(data);
+          });
+        return unsubscribe;
+      }
     }
+    getListOfChatrooms();
   }, [currentUser.uid]);
   return (
     <div>
       <Card>
-        <h3 style={{ textAlign: "center" }}>Chats</h3>
+        <h3 className="ChatNavigation_Title">Chats</h3>
       </Card>
-      <Card
-        style={{
-          maxHeight: "72vh",
-          overflow: "auto",
-          minHeight: "72vh",
-          backgroundColor: "#a9a9a9",
-          opacity: 0.9,
-        }}
-      >
+      <Card className="ChatNavigation_Container">
         <ListGroup>
           {chatrooms ? (
             chatrooms.map((chatroom, index) => {
@@ -48,44 +43,27 @@ function ChatroomNavigation() {
                   to={`/chat/${chatroom.id}`}
                   activeClassName="activeLink"
                 >
-                  <ListGroup.Item
-                    className="d-flex"
-                    style={{ flexDirection: "column" }}
-                  >
+                  <ListGroup.Item className="ChatNavigation_ListItem">
                     {chatroom.users.map((user) => {
                       if (user.id !== currentUser.uid) {
                         return (
-                          <div className="d-flex">
-                            <div
-                              style={{
-                                display: "flex",
-                                width: "100%",
-                                alignItems: "center",
-                                flex: "1",
-                              }}
-                            >
+                          <div className="ChatNavigation_Chatbox">
+                            <div className="ChatNavigation_InnerChatbox_Left">
                               <img
-                                style={{
-                                  maxWidth: "50px",
-                                  borderRadius: "100%",
-                                  border: "solid 1px black",
-                                }}
+                                className="ChatNavigation_ProfileIcon"
                                 src={`http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${user.profileIconId}.jpg`}
                                 alt="profile icon"
                               />
                             </div>
-                            <div style={{ flex: "2" }}>
-                              <h4 style={{ textAlign: "center" }} key={user.id}>
+                            <div className="ChatNavigation_InnerChatbox_Right">
+                              <h4
+                                className="ChatNavigation_Username"
+                                key={user.id}
+                              >
                                 {user.name}
                               </h4>
-                              <p
-                                style={{
-                                  textAlign: "center",
-                                  maxWidth: 134,
-                                  whiteSpace: "nowrap",
-                                  textOverflow: "ellipsis",
-                                  overflow: "hidden",
-                                }}
+                              <p className="ChatNavigation_LastMessage"
+            
                               >
                                 {chatroom.lastMessage}
                               </p>
