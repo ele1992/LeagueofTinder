@@ -1,4 +1,4 @@
-![alttext](https://res.cloudinary.com/djjsvqfky/image/upload/v1620654842/Screenshot_2021-05-10_at_15.48.18_yjmp0j.png)
+![alt text](https://res.cloudinary.com/djjsvqfky/image/upload/v1620654842/Screenshot_2021-05-10_at_15.48.18_yjmp0j.png)
 ## Available Scripts
 
 In the project directory, you can run:
