@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Modal, Table } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
-
 import { dataBase } from "../../firebase";
 import { useUsers } from "../../contexts/UserContext";
 import { HandThumbsUpFill } from "react-bootstrap-icons";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Dashboard.css";
 
 export default function Dashboard() {
   const [error, setError] = useState("");
@@ -23,31 +24,37 @@ export default function Dashboard() {
   }
   function like(id, name, profileIconId) {
     if (dataBase) {
-      dataBase
-        .collection("Users")
-        .doc(currentUser.uid)
-        .collection("Likes")
-        .doc(id)
-        .set({ liked: true });
-
-      dataBase
-        .collection("Users")
-        .doc(id)
-        .collection("Likes")
-        .doc(currentUser.uid)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            chat(id, name, profileIconId);
-            console.log(doc.data());
-          } else {
-            console.log("no such document");
-          }
-        });
+      setLikesInDatabase(id);
+      compareUserLikes(id, name, profileIconId);
     }
   }
 
+  function setLikesInDatabase(id) {
+    dataBase
+      .collection("Users")
+      .doc(currentUser.uid)
+      .collection("Likes")
+      .doc(id)
+      .set({ liked: true });
+  }
+  function compareUserLikes(id, name, profileIconId) {
+    dataBase
+      .collection("Users")
+      .doc(id)
+      .collection("Likes")
+      .doc(currentUser.uid)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          createChatRoom(id, name, profileIconId);
+          console.log(doc.data());
+        } else {
+          console.log("no such document");
+        }
+      });
+  }
+
   useEffect(() => {
-    async function getLikes() {
+    async function getLikesForCurrentUser() {
       try {
         if (dataBase) {
           dataBase
@@ -65,10 +72,10 @@ export default function Dashboard() {
         setError(e.message);
       }
     }
-    getLikes();
+    getLikesForCurrentUser();
   }, [currentUser]);
 
-  function chat(id, name, profileIconId) {
+  function createChatRoom(id, name, profileIconId) {
     const ChatroomName = [currentUser.uid, id].sort().join("_");
     if (dataBase) {
       dataBase
@@ -93,38 +100,30 @@ export default function Dashboard() {
   console.log(error);
   return (
     <>
-      <div
-        className="d-flex flex-wrap "
-        style={{ maxHeight: "calc(100vh - 190px)", overflow: "scroll" }}
-      >
+      <div className="Dashboard_Container">
         {users.map((user, index) => {
           if (currentUser.uid !== user.id) {
             return (
               <Card
                 key={user.puuid}
-                className="m-2"
+                className="Dashboard_UserCard"
                 border={likesArray.includes(user.id) ? "primary" : "white"}
-                style={{
-                  border: "1px solid",
-                  boxShadow: "0 0 20px rgba(0,0,0,0.5)",
-                }}
               >
                 <Card.Body
-                  className="d-flex align-items-center justify-content-center"
+                  className="Dashboard_UserCard_Body"
                   style={{
-                    flexDirection: "column",
                     backgroundColor: likesArray.includes(user.id)
                       ? "#037bfe"
                       : "white",
                   }}
                 >
                   <img
+                    className="Dashboard_UserCard_Image"
                     src={`http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${user.profileIconId}.jpg`}
                     alt={user.profileIconId}
                     onClick={() => {
                       openModal(index);
                     }}
-                    style={{ height: "200px" }}
                   />
                   <Button
                     variant="link"
@@ -184,7 +183,7 @@ export default function Dashboard() {
                         {likesArray.includes(user.id) ? (
                           <HandThumbsUpFill
                             size={30}
-                            style={{ color: "#4e44ec" }}
+                            className="Modal_Like_Icon"
                           />
                         ) : (
                           <Button
@@ -195,14 +194,14 @@ export default function Dashboard() {
                                 user.profileIconId
                               )
                             }
-                            className="m-2"
+                            className="Modal_Like_Button"
                           >
                             Like
                           </Button>
                         )}
                       </div>
                     </Modal.Footer>
-                  </Modal>{" "}
+                  </Modal>
                 </Card.Body>
               </Card>
             );

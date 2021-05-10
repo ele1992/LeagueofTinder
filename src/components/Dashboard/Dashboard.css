@@ -1,0 +1,31 @@
+.Dashboard_Container {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: calc(100vh - 190px);
+  overflow: scroll;
+}
+.Dashboard_UserCard {
+  margin: 2%;
+  border: 1px solid;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.Dashboard_UserCard_Body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Dashboard_UserCard_Image {
+  height: 200px;
+  border-radius: 2%;
+  border: black 3px solid;
+}
+
+.Modal_Like_Icon {
+  color: #4e44ec;
+}
+.Modal_Like_Button {
+  margin: 0.5%;
+}

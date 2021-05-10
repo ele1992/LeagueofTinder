@@ -62,9 +62,7 @@ function ChatroomNavigation() {
                               >
                                 {user.name}
                               </h4>
-                              <p className="ChatNavigation_LastMessage"
-            
-                              >
+                              <p className="ChatNavigation_LastMessage">
                                 {chatroom.lastMessage}
                               </p>
                             </div>
