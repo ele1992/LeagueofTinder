@@ -1,21 +1,23 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Button, Modal, Form, Alert } from "react-bootstrap";
+import { useHistory, Link } from "react-router-dom";
+import { ArrowRightSquare } from "react-bootstrap-icons";
 import Logo from "../../images/Logo.png";
 import invertedLogo from "../../images/invertedLogo.png";
-import { Button, Modal, Form, Alert } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./Navbar.css";
-import { ArrowRightSquare } from "react-bootstrap-icons";
 
 export default function Navbar() {
   const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const history = useHistory();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const { currentUser, currentPlayerInfo, logOut, logIn } = useAuth();
+
   async function handleLogOut() {
     try {
       await logOut();
@@ -47,18 +49,10 @@ export default function Navbar() {
     setShow(false);
   }
   return (
-    <div
-      style={{
-        backgroundColor: "black",
-        padding: "10px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
+    <div className="Navbar_Container">
       <Link to="/dash">
         <img
-          style={{ height: "70px" }}
+          className="Navbar_Logo"
           src={Logo}
           onMouseOver={(e) => {
             e.currentTarget.src = invertedLogo;
@@ -109,27 +103,19 @@ export default function Navbar() {
         </Modal.Body>
       </Modal>
       {!currentPlayerInfo ? (
-        <h2 style={{ color: "white" }}>League of Tinder</h2>
+        <h2>League of Tinder</h2>
       ) : (
-        <h2 style={{ color: "white" }}>{currentPlayerInfo.summonerName}</h2>
+        <h2>{currentPlayerInfo.summonerName}</h2>
       )}
       {!currentUser ? (
-        <Button
-          className="logInButton"
-          onClick={handleModal}
-          style={{
-            width: "100px",
-            height: "60px",
-          }}
-        >
+        <Button className="Navbar_SignIn_Button" onClick={handleModal}>
           Sign In
         </Button>
       ) : (
         <Button
-          className="logOutButton"
+          className="Navbar_SignOut_Button"
           variant="dark"
           onClick={handleLogOut}
-          style={{ width: "100px", height: "60px" }}
         >
           Sign Out
         </Button>
