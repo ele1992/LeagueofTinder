@@ -20,9 +20,9 @@ Which is quite hard to do when the only other options is discord or the official
 - apply skills which we learnt during Codaisseur bootcamp
 - explore new technology single-handedly
 - showcase and document development skills using:
-   i. make a wireframe
-   ii. design a data model
-   iii. write user stories
+   1. make a wireframe
+   2. design a data model
+   3. write user stories
      
 
 
