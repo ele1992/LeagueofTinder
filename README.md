@@ -11,8 +11,11 @@ Which is quite hard to do when the only other options is discord or the official
 ## Technologies used in this project
 
 - ReactJs 
-- Bootstrap
 - Firebase
+- Firestore
+- Riot API
+- Bootstrap
+- Material-UI
 
 ## Goals for this project
 
